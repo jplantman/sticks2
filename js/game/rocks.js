@@ -3,15 +3,18 @@
 var app = app || {};
 app.rockIDCount = 0;
 
-app.generateRock = function(type){
+app.generateRock = function(data){
 
-	var rock = {
-		id: app.rockIDCount++,
-		type: 'rock',
-		img: 'rocks-ss',
-		blocking: true,
-		examine: "I don't think I could move it..."
-	}
+	var type = data[0];
+	var col = data[1];
+	var row = data[2];
+
+	var rock = app.sprite('rock', col*64, row*64, 64, 64, app.imgCatalog['rocks-ss']);
+
+	rock.id = app.rockIDCount++;
+	rock.blocking = true;
+	rock.examine = "I don't think I could move it...";
+
 	if ( type == 'rock-plain' ){
 		rock.subtype = 'plain';
 	}

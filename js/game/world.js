@@ -12,19 +12,7 @@ app.initWorld = function(){
 	
 
 	var w = app.world = {
-		activeInstance: undefined,
-		getObjFromID: function(id){
-			if ( id.startsWith('player') ){ // it's a player
-				return app.player; // theres only 1 player so far. no further checks
-			} else if ( id.startsWith('rock') ){ // it's a rock
-				var idNum = id.substring(4); // strip away the 'rock', leaving just the numbers
-				for (var i = instance.rocks.length - 1; i >= 0; i--) {
-					if ( instance.rocks[i].id == idNum ){
-						return instance.rocks[i];
-					}
-				};
-			} 
-		}
+		activeInstance: undefined
 	};
 
 	// instance data objects hold all the data for an instance. this function generates the instance
@@ -70,7 +58,7 @@ app.initWorld = function(){
 			if ( data[0].startsWith('rock') ){ // its a rock
 				var col = data[1];
 				var row = data[2];
-				var obj = app.generateRock( data[0] );
+				var obj = app.generateRock( data );
 
 				// quick error check:
 				if ( g[row][col].blockable ){ 
@@ -95,6 +83,21 @@ app.initWorld = function(){
 		app.initPlayer(px*64, py*64-64);
 		g[py][px].blockable = 'player'+app.player.id;
 
+		// function to retrieve items by their id's
+		app.getObjFromID = function(id){
+			if ( id.startsWith('player') ){ // it's a player
+				return app.player; // theres only 1 player so far. no further checks
+			} else if ( id.startsWith('rock') ){ // it's a rock
+				var idNum = id.substring(4); // strip away the 'rock', leaving just the numbers
+				for (var i = instance.rocks.length - 1; i >= 0; i--) {
+					if ( instance.rocks[i].id == idNum ){
+						return instance.rocks[i];
+					}
+				};
+				throw 'ERROR: didn\'t find a rock with id'+idNum;
+			} 
+		}
+
 		// instance draw function
 		instance.draw = function(){
 
@@ -117,7 +120,7 @@ app.initWorld = function(){
 					//blah blah
 
 					if (block.blockable){ // draw the blockable, if theres any
-						var blockable = w.getObjFromID( block.blockable );
+						var blockable = app.getObjFromID( block.blockable );
 						
 						// app.ctx.fillStyle = 'red';
 						// app.ctx.strokeStyle = 'black';
@@ -134,7 +137,7 @@ app.initWorld = function(){
 
 		app.activeInstance = instance;
 	
-	}
+	} // end loadInstance()
 
 
 
