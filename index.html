@@ -1,0 +1,67 @@
+
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <title>Sticks N Stones</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+        <style>
+        	* {
+        		margin: 0;
+        		padding: 0;
+        	}
+
+        	#canvas {
+        		width: 100vw;
+        		height: 100vh;
+        	}
+        </style>   
+    </head>
+    <body>
+<!-- 
+    	<img src="imgs/working/baseChar-d-i-0.png" style="display: none;"> -->
+    	<!-- the game engine expects this in the body here like this: -->
+    	<div id="gameWindow">
+			<canvas id="canvas"></canvas>
+		</div>
+
+		<script src="js/engine/debug.js"></script>
+		<script src="js/engine/controller.js"></script>
+		<script src="js/engine/sprites.js"></script>
+		<script src="js/engine/load.js"></script>
+		<script src="js/engine/gameLoop.js"></script>
+
+
+		<script src="js/game/rocks.js"></script>
+		<script src="js/game/instances.js"></script>
+		<script src="js/game/world.js"></script>
+		<script src="js/game/player.js"></script>
+		<script src="js/game/update.js"></script>
+
+
+		<script>
+		// things the game engine requires to start:
+			var callback = function(){
+					app.initSprites();
+					// app.initController(); NOT READY
+					app.initWorld();
+					app.initUpdate();
+					app.loadInstance( 'Area One' );
+					app.initGameLoop();
+			}
+			images = [
+				['baseChar-ss', 'imgs/spritesheets/baseChar-ss.png'],
+				['rocks-ss', 'imgs/spritesheets/rocks-ss.png']
+			];
+			app.initLoad( callback, images );
+			
+
+
+		</script>
+
+    </body>
+</html>
+
+
+
