@@ -24,8 +24,13 @@ app.getInstanceData = function(name){
 			// plant-grass, plant-cattail, plant-dandelion, plant-yarrow, plant-nightshade
 			// and so on... each kind of object has an array of data for each variety of it
 			// (e.g. an array for rocks, an array for trees)
-			blockables: [['rock-iron', 4, 2]],
-			smallClickables: [],
+			blockables: [
+				['rock-iron', 4, 2],
+				['tree-pine', 2, 4]
+			],
+			smallClickables: [
+				['fishingSpot-sardines', 5, 4]
+			],
 			decorations: []
 			
 		}

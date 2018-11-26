@@ -3,7 +3,7 @@
 var app = app || {};
 
 app.initPlayer = function(x, y){
-	var p = app.player = app.sprite('player', x, y, 64, 128, app.imgCatalog['baseChar-ss'], 64, 64, 0, 64);	
+	var p = app.player = app.sprite('player', x, y, 64, 128, app.imgCatalog['baseChar-ss'], 64, 64, 0, 0);	
 	p.id = 1; // will be more than one, if multiplayer
 
 	// player.newAnim('idle_d', [

@@ -8,7 +8,7 @@ app.initUpdate = function(){
 
 		var currentInstance = app.activeInstance;
 		if (currentInstance){
-			currentInstance.draw();
+			currentInstance.draw(dt);
 		}
 	}	
 }

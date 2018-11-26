@@ -48,34 +48,69 @@ app.initWorld = function(){
 
 		// add blockables, small-clickables, and decorations are dividied down into more specific categories, for faster searching
 		instance.rocks = [];
+		instance.trees = [];
 		instance.players = []; // in case multiplayer. unused for now
 
 		// now, the objects and players must be placed
 
 		// adding blockables
 		for (var i = 0; i < instance.blockables.length; i++) {
-			var data = instance.blockables[i]; // this is expected to be like: ['type', col, row]
-			if ( data[0].startsWith('rock') ){ // its a rock
-				var col = data[1];
-				var row = data[2];
-				var obj = app.generateRock( data );
+			var data = instance.blockables[i], // this is expected to be like: ['type', col, row]
+			
+			type = data[0],
+			col = data[1],
+			row = data[2];
+			// quick error check:
+			if ( g[row][col].blockable ){ 
+				throw ('ERROR: multiple blockables in same spot at:'+ col+', ' + row);
+			}
 
-				// quick error check:
-				if ( g[row][col].blockable ){ 
-					throw ('ERROR: multiple blockables in same spot at:'+ col+', ' + row);
-				}
+			// its a rock
+			if ( type.startsWith('rock') ){
+				
+				var obj = app.generateRock( data );
 
 				// make the corresponding block refer to this obj's type-id
 				g[row][col].blockable = obj.type+obj.id;
 
 				// add the obj to the right array
-				instance.rocks.push( obj );
+				instance.rocks.push( obj );	
+			}
+			// its a tree
+			else if ( type.startsWith('tree') ){
+				var obj = app.generateTree( data );
 
+				// make the corresponding block refer to this obj's type-id
+				g[row][col].blockable = obj.type+obj.id;
 
-				
-				
-			} 
-			// continue adding the rest of stuff, HERE
+				// add the obj to the right array
+				instance.trees.push( obj );	
+			} else { // shouldnt run
+				throw 'this type of blockable is not defined: '+type;
+			}
+			
+		};
+
+		// adding clickables
+		for (var i = 0; i < instance.smallClickables.length; i++) {
+			var data = instance.smallClickables[i], // this is expected to be like: ['type', col, row]
+
+			type = data[0],
+			col = data[1],
+			row = data[2];
+
+			// its a fishing spot
+			if ( type.startsWith('fishingSpot') ){
+				var obj = app.generateFishingSpot( data );
+
+				// make the corresponding block refer to this obj's type-id
+				g[row][col].smallClickables.push( obj.type+obj.id  );
+
+				// modify the obj within the array
+				instance.smallClickables[i] = obj;	
+			} else { // shouldnt run
+				throw 'this type of small clickable is not defined: '+type;
+			}
 		};
 
 		// adding the player
@@ -87,7 +122,9 @@ app.initWorld = function(){
 		app.getObjFromID = function(id){
 			if ( id.startsWith('player') ){ // it's a player
 				return app.player; // theres only 1 player so far. no further checks
-			} else if ( id.startsWith('rock') ){ // it's a rock
+			} 
+			// it's a rock
+			else if ( id.startsWith('rock') ){ 
 				var idNum = id.substring(4); // strip away the 'rock', leaving just the numbers
 				for (var i = instance.rocks.length - 1; i >= 0; i--) {
 					if ( instance.rocks[i].id == idNum ){
@@ -95,11 +132,35 @@ app.initWorld = function(){
 					}
 				};
 				throw 'ERROR: didn\'t find a rock with id'+idNum;
+			}
+			// it's a tree
+			else if ( id.startsWith('tree') ){ 
+				var idNum = id.substring(4); // strip away the 'tree', leaving just the numbers
+				for (var i = instance.trees.length - 1; i >= 0; i--) {
+					if ( instance.trees[i].id == idNum ){
+						return instance.trees[i];
+					}
+				};
+				throw 'ERROR: didn\'t find a tree with id'+idNum;
 			} 
+			// it's a fishing spot
+			else if ( id.startsWith('fishingSpot') ){ 
+				var idNum = id.substring(11); // strip away the 'tree', leaving just the numbers
+				for (var i = instance.smallClickables.length - 1; i >= 0; i--) {
+					if ( instance.smallClickables[i].id == idNum ){
+						return instance.smallClickables[i];
+					}
+				};
+				throw 'ERROR: didn\'t find a tree with id'+idNum;
+			} 
+
+			else { // should not happen
+				throw 'ERROR: getObjFromIDcan\'t find a type for this id: '+id;
+			}
 		}
 
 		// instance draw function
-		instance.draw = function(){
+		instance.draw = function(dt){
 
 			for (var r = 0, rlen = g.length; r < rlen; r++) {
 				for (var c = 0, clen = g[r].length; c < clen; c++) {
@@ -117,16 +178,24 @@ app.initWorld = function(){
 					app.ctx.strokeStyle = 'black';
 					app.ctx.fillRect(c*64, r*64, 64, 64);
 					app.ctx.strokeRect(c*64, r*64, 64, 64);
-					//blah blah
+					
+					// draw clickables, if any
+					if (block.smallClickables.length){
+						for (var i = block.smallClickables.length - 1; i >= 0; i--) {
+							var clickable = app.getObjFromID( block.smallClickables[i] );
+							clickable.draw(dt);
+						};
+					}
 
-					if (block.blockable){ // draw the blockable, if theres any
+					// draw the blockable, if theres any
+					if (block.blockable){ 
 						var blockable = app.getObjFromID( block.blockable );
 						
 						// app.ctx.fillStyle = 'red';
 						// app.ctx.strokeStyle = 'black';
 						// app.ctx.fillRect(c*64, r*64, 64, 64);
 						// app.ctx.strokeRect(c*64, r*64, 64, 64);
-						blockable.draw();
+						blockable.draw(dt);
 					}
 				};
 			};

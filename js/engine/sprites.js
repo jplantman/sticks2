@@ -46,8 +46,8 @@ app.initSprites = function(){
 			this.vh * this.frameY,
 			this.vw,
 			this.vh,
-			this.x, // destination
-			this.y,
+			this.x - this.dw, // destination
+			this.y - this.dh,
 			this.vw,
 			this.vh
 			);
