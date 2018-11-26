@@ -9,8 +9,8 @@ app.initSprites = function(){
 	app.canvas = app.canvas || document.getElementById('canvas');
 
 	// set width and height
-	app.canvas.width = Math.min(64*10, window.innerWidth);
-	app.canvas.height = Math.min(64*6, window.innerHeight);
+	app.canvas.width = Math.min(64*7, window.innerWidth);
+	app.canvas.height = Math.min(64*7, window.innerHeight);
 
 
 	// context

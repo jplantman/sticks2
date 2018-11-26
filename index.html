@@ -15,6 +15,7 @@
         	#canvas {
         		width: 100vw;
         		height: 100vh;
+        		border: 2px solid red;
         	}
         </style>   
     </head>
@@ -27,8 +28,8 @@
 		</div>
 
 		<script src="js/engine/debug.js"></script>
-		<script src="js/engine/controller.js"></script>
 		<script src="js/engine/sprites.js"></script>
+		<script src="js/engine/controller.js"></script>
 		<script src="js/engine/load.js"></script>
 		<script src="js/engine/gameLoop.js"></script>
 
@@ -46,7 +47,7 @@
 		// things the game engine requires to start:
 			var callback = function(){
 					app.initSprites();
-					// app.initController(); NOT READY
+					app.initController();
 					app.initWorld();
 					app.initUpdate();
 					app.loadInstance( 'Area One' );

@@ -12,7 +12,9 @@ app.initWorld = function(){
 	
 
 	var w = app.world = {
-		activeInstance: undefined
+		activeInstance: undefined,
+		rows: undefined,
+		cols: undefined
 	};
 
 	// instance data objects hold all the data for an instance. this function generates the instance
@@ -23,6 +25,9 @@ app.initWorld = function(){
 
 		// first, the grid cells need to be all turned into the proper block objects
 		var g = instance.grid;
+
+		w.rows = g.length;
+		w.cols = g[0].length;
 
 		// here we go, processing the grid
 		for (var r = g.length - 1; r >= 0; r--) {
