@@ -13,7 +13,11 @@ app.generateTree = function(data){
 
 	tree.id = app.treeIDCount++;
 	tree.blocking = true;
-	tree.examine = "It's a tree";
+	tree.mainActions = [
+		['chop' , 'Tree', tree.id],
+		['take branches', 'Tree', tree.id]
+	];
+	tree.examine = ["examine", 'Tree', tree.id];
 
 	if ( type == 'tree-pine' ){
 		tree.subtype = 'pine';

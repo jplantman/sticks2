@@ -13,7 +13,11 @@ app.generateFishingSpot = function(data){
 
 	fishingSpot.id = app.fishingSpotIDCount++;
 	fishingSpot.blocking = false;
-	fishingSpot.examine = "I should try fishing here";
+
+	fishingSpot.mainActions = [
+		['fish', 'Fishing Spot', fishingSpot.id]
+	];
+	fishingSpot.examine = ["examine", 'Fishing Spot', fishingSpot.id];
 	fishingSpot.frameY = 0;
 	fishingSpot.frameX = 0;
 

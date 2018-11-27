@@ -6,7 +6,7 @@ app.getInstanceData = function(name){
 	if ( name == 'Area One' ){
 		return {
 			name: 'Area One',
-			playerSpawn: [3, 3],
+			playerSpawn: [4, 3],
 			grid: [
 					['w','w','w','w','w','w','w'],
 					['w','w','w','l','l','l','w'],

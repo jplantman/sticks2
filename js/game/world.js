@@ -119,9 +119,9 @@ app.initWorld = function(){
 		};
 
 		// adding the player
-		var px = instance.playerSpawn[0], py = instance.playerSpawn[1];
-		app.initPlayer(px*64, py*64-64);
-		g[py][px].blockable = 'player'+app.player.id;
+		var pcol = instance.playerSpawn[0], prow = instance.playerSpawn[1];
+		app.initPlayer(pcol, prow);
+		g[prow][pcol].blockable = 'player'+app.player.id;
 
 		// function to retrieve items by their id's
 		app.getObjFromID = function(id){
@@ -209,7 +209,7 @@ app.initWorld = function(){
 
 
 
-		app.activeInstance = instance;
+		w.activeInstance = instance;
 	
 	} // end loadInstance()
 

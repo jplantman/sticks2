@@ -5,19 +5,7 @@
         <title>Sticks N Stones</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-
-        <style>
-        	* {
-        		margin: 0;
-        		padding: 0;
-        	}
-
-        	#canvas {
-        		width: 100vw;
-        		height: 100vh;
-        		border: 2px solid red;
-        	}
-        </style>   
+        <link rel="stylesheet" type="text/css" href="css/index.css">
     </head>
     <body>
 <!-- 
@@ -29,7 +17,6 @@
 
 		<script src="js/engine/debug.js"></script>
 		<script src="js/engine/sprites.js"></script>
-		<script src="js/engine/controller.js"></script>
 		<script src="js/engine/load.js"></script>
 		<script src="js/engine/gameLoop.js"></script>
 
@@ -37,6 +24,9 @@
 		<script src="js/game/trees.js"></script>
 		<script src="js/game/fishingSpot.js"></script>
 
+		<script src="js/game/pathfinding.js"></script>
+		<script src="js/game/controller.js"></script>
+		<script src="js/game/actionHandler.js"></script>
 		<script src="js/game/instances.js"></script>
 		<script src="js/game/world.js"></script>
 		<script src="js/game/player.js"></script>
@@ -48,9 +38,11 @@
 			var callback = function(){
 					app.initSprites();
 					app.initController();
+					app.initActionHandler();
 					app.initWorld();
 					app.initUpdate();
 					app.loadInstance( 'Area One' );
+					app.initPathfinding();
 					app.initGameLoop();
 			}
 			images = [

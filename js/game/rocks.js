@@ -2,6 +2,7 @@
 
 var app = app || {};
 app.rockIDCount = 0;
+// app.rockAction
 
 app.generateRock = function(data){
 
@@ -13,7 +14,11 @@ app.generateRock = function(data){
 
 	rock.id = app.rockIDCount++;
 	rock.blocking = true;
-	rock.examine = "I don't think I could move it...";
+
+	rock.mainActions = [
+		['mine', 'Rock', rock.id]
+	];
+	rock.examine = ['examine', 'Rock', rock.id];
 
 	// if ( type == 'rock-plain' ){
 	// 	rock.subtype = 'plain';
