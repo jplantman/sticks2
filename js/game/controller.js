@@ -127,10 +127,15 @@ app.initController = function(){
 		}
 
 		// add walk here action
-		clickMenuOptions.push(['walk here', 'block', [col, row] ]);
+		clickMenuOptions.push([ 'walk here', 'block', [col, row] ]);
 
 		// add all the examine actions
 		clickMenuOptions = clickMenuOptions.concat( tempHoldForExamineActions );
+
+		// add debug action
+		if ( app.debugMode ){
+			clickMenuOptions.push( [ 'debug', 'block', [col, row] ] );
+		}
 
 		// clickMenuOptions is now ready
 		// console.log(clickMenuOptions);

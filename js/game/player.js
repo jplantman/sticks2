@@ -83,6 +83,8 @@ app.initPlayer = function(col, row){
 		this.currentAction = action;
 		if (action[0] == 'walk here'){
 			//start walking
+			// console.log('walking from ', this.col, this.row);
+			// console.log('to     ', action[1], action[2]);
 			this.prevCol = this.col;
 			this.prevRow = this.row;
 			this.actionTimerX = action[3]*50;
@@ -106,7 +108,12 @@ app.initPlayer = function(col, row){
 			}
 			
 
-		} else {
+		} 
+		else if ( action[0] == 'debug' ){ // console log the block object thats here
+			var coords = action[2];
+			console.log( app.world.activeInstance.grid[ coords[1] ][ coords[0] ] );
+		}
+		else {
 			console.log('do action ', action);
 		}
 	}

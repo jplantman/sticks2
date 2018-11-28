@@ -36,7 +36,7 @@ app.initPathfinding = function(){
 				solution = current;	
 				// console.log(current);
 				break;
-			} else if ( attempts > 10 ){
+			} else if ( attempts > 1000 ){
 				// console.log('==== GIVE UP ====');
 				// solution = undefined;
 				// console.log(current);
@@ -61,16 +61,30 @@ app.initPathfinding = function(){
 				// console.log('checking neig', neig);
 				// is neighbor out of bounds?
 				// console.log('is out of bounds?')
-				var neighborIsOutOfBounds = neig.c < 0 || neig.c >= totalCols || neig.r < 0 || neig.r >= totalRows;
-				if (neighborIsOutOfBounds){
+
+								var neigBlock;
+				if ( grid[neig[1]] ){ // figure out if that block exists on the grid
+					neigBlock = grid[neig[1]][neig[0]];
+				}
+				if ( !neigBlock ){ // if it doesn't, remove this as a neighbor
 					neighbors.splice(i, 1);
 					// console.log('yes. (remaining neighbors):', neighbors);
 					continue;
 				}
+
+
+				// var neighborIsOutOfBounds = neig.c < 0 || neig.c >= totalCols || neig.r < 0 || neig.r >= totalRows;
+				// if (neighborIsOutOfBounds){
+				// 	neighbors.splice(i, 1);
+				// 	// console.log('yes. (remaining neighbors):', neighbors);
+
+				// 	continue;
+				// }
 				// console.log('no')
 				// is neighbor blocked, or a water tile?
-				// console.log('is neig blocked, or a water tile?');
-				var neigBlock = grid[neig[1]][neig[0]];
+				// // console.log('is neig blocked, or a water tile?');
+				// var neigBlock = grid[neig[1]][neig[0]];
+				// console.log(neig, neigBlock)
 				// console.log('here\'s the actual block: ', neigBlock);
 				var neighborIsBlockedOrWater =  neigBlock.blockable || neigBlock.type == 'water';
 				if (neighborIsBlockedOrWater){
@@ -113,15 +127,15 @@ app.initPathfinding = function(){
 
 				// if neighbor was in open, check if new path to neighbor is shorter (aka if the G cost is lower from here)
 				var newPathIsShorter = false;
-				if ( neigAsInOpen ){
-					// to see if the new path is shorter, check if g is 
-					// console.log('CHECKING IF NEW PATH IS SHORTER')
-					var oldG = neigAsInOpen.g + current.g;
-					var newG = neig[2] + current.g;
-					if (newG < oldG){
-						newPathIsShorter = true;
-					}
-				}
+				// if ( neigAsInOpen ){
+				// 	// to see if the new path is shorter, check if g is 
+				// 	// console.log('CHECKING IF NEW PATH IS SHORTER')
+				// 	var oldG = neigAsInOpen.g + current.g;
+				// 	var newG = neig[2] + current.g;
+				// 	if (newG < oldG){
+				// 		newPathIsShorter = true;
+				// 	}
+				// }
 
 				function calcH(c, r, ec, er){ // col, row, endcol, endrow
 					// console.log('CALC H', c, r, ec, er);

@@ -30,7 +30,9 @@
 		<script src="js/game/inputHandler.js"></script>
 		<script src="js/game/instances.js"></script>
 		<script src="js/game/world.js"></script>
+		<script src="js/game/camera.js"></script>
 		<script src="js/game/player.js"></script>
+		<script src="js/game/ui.js"></script>
 		<script src="js/game/update.js"></script>
 
 
@@ -44,6 +46,8 @@
 					app.initUpdate();
 					app.loadInstance( 'Area One' );
 					app.initPathfinding();
+					app.initUI();
+					app.initCamera(app.player, app.world);
 					app.initGameLoop();
 			}
 			images = [
@@ -54,7 +58,6 @@
 			];
 			app.initLoad( callback, images );
 			
-
 
 		</script>
 

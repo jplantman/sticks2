@@ -167,6 +167,8 @@ app.initWorld = function(){
 		// instance draw function
 		instance.draw = function(dt){
 
+			// draw all the ground first
+
 			for (var r = 0, rlen = g.length; r < rlen; r++) {
 				for (var c = 0, clen = g[r].length; c < clen; c++) {
 					var block = g[r][c];
@@ -183,6 +185,14 @@ app.initWorld = function(){
 					app.ctx.strokeStyle = 'black';
 					app.ctx.fillRect(c*64, r*64, 64, 64);
 					app.ctx.strokeRect(c*64, r*64, 64, 64);
+					
+				};
+			};
+
+			// draw the stuff on top now
+			for (var r = 0, rlen = g.length; r < rlen; r++) {
+				for (var c = 0, clen = g[r].length; c < clen; c++) {
+					var block = g[r][c];
 					
 					// draw clickables, if any
 					if (block.smallClickables.length){
@@ -204,6 +214,7 @@ app.initWorld = function(){
 					}
 				};
 			};
+
 
 		}
 

@@ -8,12 +8,12 @@ app.getInstanceData = function(name){
 			name: 'Area One',
 			playerSpawn: [4, 3],
 			grid: [
-					['w','w','w','w','w','w','w'],
-					['w','w','w','l','l','l','w'],
-					['w','w','l','l','l','l','w'],
-					['w','l','l','l','l','w','w'],
-					['w','l','l','l','l','w','w'],
-					['w','w','l','l','l','w','w'],
+					['l','l','l','l','l','l','l'],
+					['l','l','l','l','l','l','l'],
+					['l','l','l','l','l','l','l'],
+					['l','l','l','w','l','l','l'],
+					['l','l','l','w','l','w','l'],
+					['l','l','l','l','l','l','w'],
 					['w','w','w','w','w','w','w']
 				],
 			// objects in here are in format: ['id', col, row]
@@ -25,11 +25,11 @@ app.getInstanceData = function(name){
 			// and so on... each kind of object has an array of data for each variety of it
 			// (e.g. an array for rocks, an array for trees)
 			blockables: [
-				['rock-iron', 4, 2],
-				['tree-pine', 2, 4]
+				['rock-iron', 4, 2], ['rock-iron', 5, 2], ['rock-iron', 6, 2], ['rock-iron', 4, 4],
+ 				['tree-pine', 2, 4], ['tree-pine', 3, 2]
 			],
 			smallClickables: [
-				['fishingSpot-sardines', 5, 4]
+				['fishingSpot-sardines', 6, 5], ['fishingSpot-sardines', 4, 6]
 			],
 			decorations: []
 			

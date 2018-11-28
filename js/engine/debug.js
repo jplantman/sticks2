@@ -3,7 +3,7 @@
 var app = app || {};
 
 // switch on/off
-app.debugMode = false;
+app.debugMode = true;
 
 
 app.initDebug = function(){

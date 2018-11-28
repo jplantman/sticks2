@@ -10,6 +10,7 @@ app.initUpdate = function(){
 		if (currentInstance){
 			currentInstance.draw(dt);
 			app.player.update(dt);
+			app.cam.update()
 		}
 	}	
 }
