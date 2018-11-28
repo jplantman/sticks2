@@ -9,8 +9,8 @@ app.initSprites = function(){
 	app.canvas = app.canvas || document.getElementById('canvas');
 
 	// set width and height
-	app.canvas.width = Math.min(64*7, window.innerWidth);
-	app.canvas.height = Math.min(64*7, window.innerHeight);
+	app.canvas.width = 10 * 64; // Math.min(64*7, window.innerWidth);
+	app.canvas.height = 7 * 64; Math.min(64*7, window.innerHeight);
 
 
 	// context
@@ -46,11 +46,12 @@ app.initSprites = function(){
 			this.vh * this.frameY,
 			this.vw,
 			this.vh,
-			this.x - this.dw, // destination
-			this.y - this.dh,
+			this.x - this.dw - app.cam.xmod, // destination
+			this.y - this.dh - app.cam.ymod,
 			this.vw,
 			this.vh
 			);
+
 		if (this.currentAnim){
 			this.animTime -= dt;
 			if (this.animTime <= 0){

@@ -81,8 +81,8 @@ app.initController = function(){
 		// figure out which block is being clicked on
 		var stretchX = app.canvas.offsetWidth / app.canvas.width
 		var stretchY = app.canvas.offsetHeight / app.canvas.height
-		var x = ( e.pageX - app.canvas.offsetLeft ) / stretchX ;
-		var y = ( e.pageY - app.canvas.offsetTop ) / stretchY ;
+		var x = ( e.pageX - app.canvas.offsetLeft ) / stretchX + app.cam.xmod ;
+		var y = ( e.pageY - app.canvas.offsetTop ) / stretchY + app.cam.ymod ;
 
 		var col = Math.floor(x/64);
 		var row = Math.floor(y/64);

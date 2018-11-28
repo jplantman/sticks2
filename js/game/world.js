@@ -28,6 +28,8 @@ app.initWorld = function(){
 
 		w.rows = g.length;
 		w.cols = g[0].length;
+		// w.vw = w.cols * 64;
+		// w.vh = 
 
 		// here we go, processing the grid
 		for (var r = g.length - 1; r >= 0; r--) {
@@ -183,8 +185,8 @@ app.initWorld = function(){
 						// app.ctx.strokeRect(c*64, r*64, 64, 64);
 					}
 					app.ctx.strokeStyle = 'black';
-					app.ctx.fillRect(c*64, r*64, 64, 64);
-					app.ctx.strokeRect(c*64, r*64, 64, 64);
+					app.ctx.fillRect(c*64 - app.cam.xmod, r*64 - app.cam.ymod, 64, 64);
+					app.ctx.strokeRect(c*64 - app.cam.xmod, r*64 - app.cam.ymod, 64, 64);
 					
 				};
 			};
@@ -198,6 +200,7 @@ app.initWorld = function(){
 					if (block.smallClickables.length){
 						for (var i = block.smallClickables.length - 1; i >= 0; i--) {
 							var clickable = app.getObjFromID( block.smallClickables[i] );
+							if ( blockable )
 							clickable.draw(dt);
 						};
 					}
@@ -210,6 +213,7 @@ app.initWorld = function(){
 						// app.ctx.strokeStyle = 'black';
 						// app.ctx.fillRect(c*64, r*64, 64, 64);
 						// app.ctx.strokeRect(c*64, r*64, 64, 64);
+						if ( blockable )
 						blockable.draw(dt);
 					}
 				};

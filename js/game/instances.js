@@ -8,13 +8,16 @@ app.getInstanceData = function(name){
 			name: 'Area One',
 			playerSpawn: [4, 3],
 			grid: [
-					['l','l','l','l','l','l','l'],
-					['l','l','l','l','l','l','l'],
-					['l','l','l','l','l','l','l'],
-					['l','l','l','w','l','l','l'],
-					['l','l','l','w','l','w','l'],
-					['l','l','l','l','l','l','w'],
-					['w','w','w','w','w','w','w']
+					['l','l','l','l','l','l','l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['l','l','l','l','l','l','l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['l','l','l','l','l','l','l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['l','l','l','w','l','l','l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['l','l','l','w','l','w','w', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['l','l','l','l','l','l','w', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['w','w','w','w','w','w','w', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['w','w','w','w','w','w','w', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['w','w','w','w','w','w','w', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l'],
+					['w','w','w','w','w','w','w', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l']
 				],
 			// objects in here are in format: ['id', col, row]
 			// the id and position get converted into playable format

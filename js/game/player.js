@@ -53,6 +53,8 @@ app.initPlayer = function(col, row){
 						this.col = this.currentAction[1];
 						this.row = this.currentAction[2];
 						app.world.activeInstance.grid[ this.row ][ this.col ].blockable = 'player'+this.id;
+						// this.x = Math.round(this.x / 64) * 64;
+						// this.y = Math.round(this.y / 64) * 64;
 						// this.x = this.col * 64;
 						// this.y = this.row * 64;
 					}
@@ -68,6 +70,10 @@ app.initPlayer = function(col, row){
 				} else {
 					this.frameY = 0;
 				}
+
+				// ensure the player is positioned exactly in the right spot
+				this.x = this.col * 64;
+				this.y = this.row * 64;
 
 				// this.actionTimerX = 0;
 			}
@@ -104,6 +110,10 @@ app.initPlayer = function(col, row){
 				this.col = this.currentAction[1];
 				this.row = this.currentAction[2];
 				app.world.activeInstance.grid[ this.row ][ this.col ].blockable = 'player'+this.id;
+				// this.x = Math.round(this.x / 64) * 64;
+				// this.y = Math.round(this.y / 64) * 64;
+				// this.x = this.col * 64;
+				// this.y = this.row * 64;
 				this.walkUpdated = true;
 			}
 			
