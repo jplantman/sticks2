@@ -9,6 +9,7 @@ app.initUpdate = function(){
 		var currentInstance = app.world.activeInstance;
 		if (currentInstance){
 			currentInstance.draw(dt);
+			app.player.update(dt);
 		}
 	}	
 }

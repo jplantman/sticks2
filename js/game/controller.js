@@ -29,7 +29,7 @@ app.initController = function(){
 				div.className = 'rightClickMenuItem';
 				div.onclick = function(){
 					c.menu.close();
-					app.handleAction( optionData );
+					app.handleInput( optionData );
 				}
 				c.menu.appendChild(div);
 			})(i);
@@ -74,7 +74,10 @@ app.initController = function(){
 				all the examine actions
 				cancel
 		*/
-
+		if ( !app.player.isInControl ){
+			console.log('You can\'t do anything right now');
+			return;
+		}
 		// figure out which block is being clicked on
 		var stretchX = app.canvas.offsetWidth / app.canvas.width
 		var stretchY = app.canvas.offsetHeight / app.canvas.height
@@ -138,7 +141,7 @@ app.initController = function(){
 		} else {
 			// left click
 			c.menu.close();
-			app.handleAction( clickMenuOptions[0] );
+			app.handleInput( clickMenuOptions[0] );
 		}
 
 

@@ -15,6 +15,7 @@
 			<canvas id="canvas"></canvas>
 		</div>
 
+		<script src="js/engine/helpers.js"></script>
 		<script src="js/engine/debug.js"></script>
 		<script src="js/engine/sprites.js"></script>
 		<script src="js/engine/load.js"></script>
@@ -26,7 +27,7 @@
 
 		<script src="js/game/pathfinding.js"></script>
 		<script src="js/game/controller.js"></script>
-		<script src="js/game/actionHandler.js"></script>
+		<script src="js/game/inputHandler.js"></script>
 		<script src="js/game/instances.js"></script>
 		<script src="js/game/world.js"></script>
 		<script src="js/game/player.js"></script>
@@ -38,7 +39,7 @@
 			var callback = function(){
 					app.initSprites();
 					app.initController();
-					app.initActionHandler();
+					app.initInputHandler();
 					app.initWorld();
 					app.initUpdate();
 					app.loadInstance( 'Area One' );

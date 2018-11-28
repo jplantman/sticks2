@@ -6,7 +6,7 @@ app.initPathfinding = function(){
 	// A* pathfinding algorithm
 	// https://www.youtube.com/watch?v=-L-WgKMFuhE&t=329s
 
-	app.findPath = function(start, end, grid, totalRows, totalCols){
+	app.findPath = function(start, end, grid, totalRows, totalCols, who){
 		// console.log('finding Path with: ', start, end, grid, totalRows, totalCols);
 
 		var open = [ // nodes to check
@@ -142,6 +142,7 @@ app.initPathfinding = function(){
 					var neighbor = neigAsInOpen ? neigAsInOpen : { c: neig[0], r: neig[1] };
 					// calculate g, h, f
 					neighbor.g = neig[2] + current.g;
+					neighbor.mt = neig[2]; // save this val to calc the movement time later
 					neighbor.h = calcH(neig[0], neig[1], end[0], end[1]);
 					neighbor.f = neighbor.g + neighbor.h;
 					
@@ -167,11 +168,27 @@ app.initPathfinding = function(){
 		} // end while loop
 
 		if (solution){
-			// process solution	
-			console.log(solution)
+			// process solution	into an array of steps
+			var steps = [];
+			var doneProcessing = false;
+			var currentStep = solution;
+			while ( !doneProcessing ){
+				steps.unshift( ['walk here', currentStep.c, currentStep.r, currentStep.mt] ); // add from the left
+				if ( !currentStep.p ){ // if current step has no parent, done
+					doneProcessing = true;
+				} else {
+					currentStep = currentStep.p;
+				}
+			}
+			// remove the first step, because it redundantly is the square that you're already on
+			steps.shift();
+
+			// have whoever (the player, for now) preform these walking steps
+			who.setActionQueue( steps );
+
 		} else {
 			// no solution, function has given up
-			console.log('give up');
+			console.log('can\'t reach there');
 		}
 
 
