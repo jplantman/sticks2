@@ -87,21 +87,36 @@ app.initSprites = function(){
 		this.anims[name] = { name: name, data: data, doAfter: doAfter };
 	}
 	Sprite.prototype.animate = function(name){ // set up an animation to run (use this in game code)
+		// if (this.currentAnim){
+		// 	console.log(this.currentAnim.name)
+		// }
 		this.currentAnim = this.anims[name];
 		this.currentAnimStep = 0;
 		this.animTime = this.currentAnim.data[0][2];
 		this.frameX = this.currentAnim.data[0][0];
 		this.frameY = this.currentAnim.data[0][1];
+		// if (this.currentAnim.name == 'walkRight'){
+		// 	console.log(this.currentAnimStep);
+		// }
 	}
 	Sprite.prototype.animStep = function(){
 		// figure out which is next frame in animation
 		this.currentAnimStep++;
+		// if (this.currentAnim.name == 'walkRight'){
+		// 		console.log(this.currentAnimStep);
+		// 		// console.log(this.currentAnimStep, this.currentAnim.data.length);
+		// 		// console.log('#', this.currentAnim.data[this.currentAnimStep])
+		// 	};
 		var nextFrame = this.currentAnim.data[ this.currentAnimStep ];
+		
 		if ( nextFrame ){ // advance animation step
+
 			this.frameX = nextFrame[0];
 			this.frameY = nextFrame[1];
 			this.animTime = nextFrame[2];
+			
 		} else { // animation is done, run doAfter
+			
 			var doAfter = this.currentAnim.doAfter;
 			this.stopAnim();
 			if ( typeof doAfter == 'string' ){

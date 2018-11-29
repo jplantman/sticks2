@@ -14,8 +14,8 @@ app.initCamera = function(player, world){
 
 	// camera follows player, but stays inside world
 	c.update = function(){
-		c.xmod =  Math.min(Math.max(player.x - 4*64, 0), world.cols * 64); 
-		c.ymod = Math.min(Math.max(player.y - 3*64, 0), world.rows * 64); 
+		this.xmod =  Math.min(Math.max(player.x - 4*64, 0), world.cols * 64 - this.vw); 
+		this.ymod = Math.min(Math.max(player.y - 3*64, 0), world.rows * 64 - this.vh); 
 	}
 	// console.log('camera for ', player, world);
 	// console.log(c)

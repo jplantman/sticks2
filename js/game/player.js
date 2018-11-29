@@ -20,7 +20,7 @@ app.initPlayer = function(col, row){
 
 
 	// ACTIONS
-	p.setActionQueue = function(actions){
+	p.setActionQueue = function(actions, h){ // h is sent only when trying to walk somewhere, but not getting all the way. h is the heuristic value from our pathfinding algorithm, which is == the distance to the final destination block
 		this.actionQueue = actions;
 	}
 
@@ -61,15 +61,6 @@ app.initPlayer = function(col, row){
 				}
 				this.currentAction = undefined;
 				// console.log('done')
-				this.stopAnim();
-				this.frameX = 0;
-				if ( this.direction == 'l' ){
-					this.frameY = 1;
-				} else if ( this.direction == 'r' ){
-					this.frameY = 2;
-				} else {
-					this.frameY = 0;
-				}
 
 				// ensure the player is positioned exactly in the right spot
 				this.x = this.col * 64;
@@ -82,6 +73,17 @@ app.initPlayer = function(col, row){
 		else if ( this.actionQueue.length ) {
 			// start that action
 			this.actionHandler( this.actionQueue.shift() );
+		} else {
+			// if no actions are going on or are left to do at all, stand still
+			this.stopAnim();
+			this.frameX = 0;
+			if ( this.direction == 'l' ){
+				this.frameY = 1;
+			} else if ( this.direction == 'r' ){
+				this.frameY = 2;
+			} else {
+				this.frameY = 0;
+			}
 		}
 	}
 
@@ -96,12 +98,16 @@ app.initPlayer = function(col, row){
 			this.actionTimerX = action[3]*50;
 			this.actionTimerY = action[3]*50;
 			this.direction = dir(this.prevCol, this.prevRow, action[1], action[2]);
+			var possibleAnim; // we do this bit because we want the walk animation to run only if youre not already walking, or are changing directions
 			if ( this.direction == 'l' ){
-				this.animate('walkLeft');
+				possibleAnim = 'walkLeft';
 			} else if ( this.direction == 'r' ){
-				this.animate('walkRight');
+				possibleAnim = 'walkRight';
 			} else {
-				this.animate('walkDown');
+				possibleAnim = 'walkDown';
+			}
+			if ( !this.currentAnim || this.currentAnim.name != possibleAnim ){
+				this.animate(possibleAnim)
 			}
 			// if direction contains any left or down, this part here has to happen now
 			this.walkUpdated = false;
@@ -124,7 +130,7 @@ app.initPlayer = function(col, row){
 			console.log( app.world.activeInstance.grid[ coords[1] ][ coords[0] ] );
 		}
 		else {
-			console.log('do action ', action);
+			app.ui.text.log('do action: '+ action);
 		}
 	}
 
@@ -133,15 +139,15 @@ app.initPlayer = function(col, row){
 
 	// Animations
 	p.newAnim('walkDown', [
-		[0, 0, 200], [1, 0, 200], [0, 0, 200], [2, 0, 200]
+		[1, 0, 200], [0, 0, 200], [2, 0, 200], [0, 0, 200]
 	], 'walkDown');
 
 	p.newAnim('walkLeft', [
-		[0, 1, 200], [1, 1, 200], [0, 1, 200], [2, 1, 200]
+		[1, 1, 200], [0, 1, 200], [2, 1, 200], [0, 1, 200]
 	], 'walkLeft');
 
 	p.newAnim('walkRight', [
-		[0, 2, 200], [1, 2, 200], [0, 2, 200], [2, 2, 200]
+		[1, 2, 200], [0, 2, 200], [2, 2, 200], [0, 2, 200]
 	], 'walkRight');
 
 

@@ -15,6 +15,7 @@ app.initPathfinding = function(){
 		var closed = []; // nodes already checked
 
 		var solution = undefined;
+		var closestToSolution = undefined; // save the closest solution. we walk here in case of failure
 		var attempts = 0;
 		while ( !solution ){
 			attempts++;
@@ -137,18 +138,19 @@ app.initPathfinding = function(){
 				// 	}
 				// }
 
-				function calcH(c, r, ec, er){ // col, row, endcol, endrow
-					// console.log('CALC H', c, r, ec, er);
-					// find c and r distance
-					var cdist = Math.abs(c-ec);
-					var rdist = Math.abs(r-er);
-					// the smallest number == number of 14's
-					// the biggest - smallest == number of 10's
-					var smallest = cdist <= rdist ? cdist : rdist;
-					var biggest = cdist > rdist ? cdist : rdist;
-					// console.log( 'h = ',smallest*14 + ( biggest-smallest )*10 );
-					return smallest*14 + ( biggest-smallest )*10;
-				}
+				// HEY: this is going into helpers.js, so it can be used elsewhere, too.
+				// function calcH(c, r, ec, er){ // col, row, endcol, endrow
+				// 	// console.log('CALC H', c, r, ec, er);
+				// 	// find c and r distance
+				// 	var cdist = Math.abs(c-ec);
+				// 	var rdist = Math.abs(r-er);
+				// 	// the smallest number == number of 14's
+				// 	// the biggest - smallest == number of 10's
+				// 	var smallest = cdist <= rdist ? cdist : rdist;
+				// 	var biggest = cdist > rdist ? cdist : rdist;
+				// 	// console.log( 'h = ',smallest*14 + ( biggest-smallest )*10 );
+				// 	return smallest*14 + ( biggest-smallest )*10;
+				// }
 
 				// done checking those 2 conditions...
 				if ( !neigAsInOpen || newPathIsShorter ){
@@ -162,6 +164,11 @@ app.initPathfinding = function(){
 					
 					// set parent of neig to current
 					neighbor.p = current;
+
+					// if this is our best answer yet, save it
+					if ( !closestToSolution || closestToSolution.h > neighbor.h ){
+						closestToSolution = neighbor;
+					}
 
 					// if neig wasn't in open, add it.
 					if ( !neigAsInOpen ){
@@ -181,11 +188,11 @@ app.initPathfinding = function(){
 
 		} // end while loop
 
-		if (solution){
+		if (solution || closestToSolution){
 			// process solution	into an array of steps
 			var steps = [];
 			var doneProcessing = false;
-			var currentStep = solution;
+			var currentStep = solution || closestToSolution;
 			while ( !doneProcessing ){
 				steps.unshift( ['walk here', currentStep.c, currentStep.r, currentStep.mt] ); // add from the left
 				if ( !currentStep.p ){ // if current step has no parent, done
@@ -198,11 +205,12 @@ app.initPathfinding = function(){
 			steps.shift();
 
 			// have whoever (the player, for now) preform these walking steps
-			who.setActionQueue( steps );
+			who.setActionQueue( steps, solution ? undefined : closestToSolution.h ); // if there was no solution, send along the h value to the closest solution (so, he will walk right up to a rock, even though he cant walk on top of it)
 
-		} else {
+		} else { // shouldnt happen anymore, since we added a closestToSolution
 			// no solution, function has given up
-			console.log('can\'t reach there');
+			app.ui.text.log("Can't reach there", "red")
+			console.log('closestToSolution:', closestToSolution);
 		}
 
 

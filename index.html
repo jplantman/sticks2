@@ -33,6 +33,7 @@
 		<script src="js/game/camera.js"></script>
 		<script src="js/game/player.js"></script>
 		<script src="js/game/ui.js"></script>
+		<script src="js/game/pack.js"></script>
 		<script src="js/game/update.js"></script>
 
 
@@ -47,6 +48,7 @@
 					app.loadInstance( 'Area One' );
 					app.initPathfinding();
 					app.initUI();
+					app.initPack(app.player, app.ui.pack);
 					app.initCamera(app.player, app.world);
 					app.initGameLoop();
 			}
